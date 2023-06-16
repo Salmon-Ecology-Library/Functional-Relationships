@@ -40,3 +40,4 @@ png(paste0("plots", plot_name, ".png"), width = 5, height = 4, units = "in", res
 plot(x, y, pch = 19, col = 1, las = 1, ylab = ylb, xlab = xlb)
 lines(xl, m1.pred, col = 4, lwd = 2)
 dev.off()
+
