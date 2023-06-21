@@ -36,8 +36,7 @@ m1.pred <- predict(m1, newdata = nd)
 
 
 # Plot graph (saved)
-png(paste0("plots", plot_name, ".png"), width = 5, height = 4, units = "in", res = 300)
+png(paste0("plots/", plot_name, ".png"), width = 5, height = 4, units = "in", res = 300)
 plot(x, y, pch = 19, col = 1, las = 1, ylab = ylb, xlab = xlb)
 lines(xl, m1.pred, col = 4, lwd = 2)
 dev.off()
-
