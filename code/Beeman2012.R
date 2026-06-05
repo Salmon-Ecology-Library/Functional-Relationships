@@ -36,8 +36,8 @@ inv_logit <- function(x) {
 }
 
 # Define ranges based on observed data minimums and maximums
-temp_seq <- seq(7.58, 17.91, length.out = 100)
-q_seq <- seq(14.1, 98.8, length.out = 100)
+temp_seq <- seq(7.58, 17.91, length.out = 20)
+q_seq <- seq(14.1, 98.8, length.out = 20)
 
 # Set up the 2x2 plotting grid
 par(mfrow = c(2, 2), mar = c(4.5, 4.5, 2, 1), oma = c(1, 1, 2, 1))
@@ -93,3 +93,9 @@ plot(q_seq, inv_logit(lp_D1), type = "l", col = "black", lty = 1,
 lines(q_seq, inv_logit(lp_D2), col = "red", lty = 3, lwd = 3)
 legend("bottomright", legend = c("11.5 g", "130.6 g"),
        col = c("black", "red"), lty = c(1, 3), lwd = c(1, 3), bty = "n")
+
+
+dat1 <- as.data.frame(cbind(temp_seq, inv_logit(lp_A1), inv_logit(lp_A2), inv_logit(lp_B1), inv_logit(lp_B2)))
+dat2 <- as.data.frame(cbind(q_seq, inv_logit(lp_C1), inv_logit(lp_C2), inv_logit(lp_D1), inv_logit(lp_D2)))
+write.csv(dat1, "Beeman_2012_T_data.csv")
+write.csv(dat2, "Beeman_2012_Q_data.csv")
