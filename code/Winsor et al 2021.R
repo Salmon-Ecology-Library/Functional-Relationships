@@ -2,7 +2,7 @@
 # Incubation Temperature, Feeding Regime, and Parentage. Transactions of the American Fisheries Society 150:578-592, 2021.
 # https://doi.org/10.1002/tafs.10309
 
-# 
+# Code generated with Gemini 3.1 Pro on 6/9/26 by PA Calhoun
 
 # ---------------------------------------------------------
 # Define the theoretical curve based on Mean ATU
