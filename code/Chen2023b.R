@@ -57,7 +57,17 @@ data_oc_pts <- data.frame(
 
 # Combine datasets for extracted output
 extracted_fig4_data <- rbind(data_est_pts, data_oc_pts)
-# write.csv(extracted_fig4_data, "Figure_4_Simulated_Points_Data.csv", row.names = FALSE)
+data_est_pts <- data.frame(
+  curve.id = "Estuary_Residents", stressor.label = "Mean_Fork_Length",
+  stressor.x = fl_est_pts, units.x = "mm", response.label = "First_Year_Ocean_Survival",
+  response.y = surv_est_pts, units.y = "proportion", plot.type = "scatter"
+)
+
+data2save <- rbind(cbind(data_est_line, "curve.id" = "Estuary_Residents"), cbind(data_oc_line, "curve.id" = "First_Year_Ocean"))
+data2save <- cbind(data2save, "stressor.label" = "Mean_Fork_Length", "units.x" = "mm", "response.label" =
+                           "First_year_ocean_survival", "units.y" = "proportion", "plot.type" = "curve")
+data2save <- data2save[, c("curve.id", "stressor.label", "stressor.x", "units.x", "response.label", "response.y", "units.y", "plot.type")]
+write.csv(data2save, "data/Chen2023b_data.csv", row.names = FALSE)
 
 # 4. Plotting Figure 4 Recreations (Points + Line)
 # Recreate Figure 4 (Left) - Estuary Residents
