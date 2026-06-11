@@ -103,7 +103,7 @@ library(readr)
 
 # 1. Load the digitized data
 # Replace 'Default Dataset (20).csv' with your actual file path if needed
-digitized_data <- read_csv("data/Chen_2023a_data.csv", show_col_types = FALSE)
+digitized_data <- read_csv("data/Chen2023a_data.csv", show_col_types = FALSE)
 
 # Rename columns to be descriptive
 colnames(digitized_data) <- c("Degree_Days", "Proportion")
