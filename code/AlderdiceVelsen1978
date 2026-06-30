@@ -1,0 +1,74 @@
+# Alderdice, D. F., & Velsen, F. P. J. (1978). Relation Between Temperature and Incubation Time for Eggs of Chinook Salmon 
+# (Oncorhynchus tshawytscha). Journal of the Fisheries Research Board of Canada, 35(1), 69–75.
+# Alderdice and Velsen 1978: Chinook egg development rate vs. incubation temperature
+# Equation 2c
+
+# Load required libraries
+library(ggplot2)
+
+# Define the temperatures evaluated in Table 3 (stressor.x)
+temp_x <- c(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 12.0, 14.0, 16.0, 18.0)
+
+# Equation 2c: ln P = -2.44813 + (1.23473 * ln(x + 2.26721))
+# P is percent development per day
+rate_y <- exp(-2.44813 + (1.23473 * log(temp_x + 2.26721)))
+
+# Calculate incubation period in days (y = 100 / P)
+incubation_y <- 100 / rate_y
+
+# Create the Rate of Development data frame
+rate_df <- data.frame(
+  curve.id = rep("log_inv_belehradek", length(temp_x)),
+  stressor.label = rep("incubation_temperature", length(temp_x)),
+  stressor.x = temp_x,
+  units.x = rep("degC", length(temp_x)),
+  response.label = rep("rate_of_development", length(temp_x)),
+  response.y = round(rate_y, 3), # Rounded to match Table 3
+  units.y = rep("percent_per_day", length(temp_x))
+)
+
+# Create the Incubation Period data frame
+incubation_df <- data.frame(
+  curve.id = rep("log_inv_belehradek", length(temp_x)),
+  stressor.label = rep("incubation_temperature", length(temp_x)),
+  stressor.x = temp_x,
+  units.x = rep("degC", length(temp_x)),
+  response.label = rep("incubation_period", length(temp_x)),
+  response.y = round(incubation_y, 1), # Rounded to match Table 3
+  units.y = rep("days", length(temp_x))
+)
+
+# Output to CSV
+write.csv(rate_df, "rate_of_development.csv", row.names = FALSE, quote = FALSE)
+write.csv(incubation_df, "incubation_period.csv", row.names = FALSE, quote = FALSE)
+
+# ---------------------------------------------------------
+# Plotting the Functions
+# ---------------------------------------------------------
+
+# Set up a 1x2 graphics grid for side-by-side plotting
+par(mfrow = c(1, 2), mar = c(5, 4, 4, 2) + 0.1)
+
+# Plot 1: Rate of Development vs Temperature
+plot(temp_x, rate_y, 
+     type = "o",           # "o" plots both points and lines
+     pch = 16,             # Solid circles
+     col = "darkblue",     # Line/point color
+     lwd = 2,              # Line width
+     xlab = "Incubation Temperature (°C)", 
+     ylab = "Rate of Development (%/day)",
+     main = "Development Rate\n(Alderdice & Velsen 1978)")
+
+# Plot 2: Incubation Period vs Temperature
+plot(temp_x, incubation_y, 
+     type = "o", 
+     pch = 16, 
+     col = "darkred", 
+     lwd = 2, 
+     xlab = "Incubation Temperature (°C)", 
+     ylab = "Incubation Period (days)",
+     main = "Incubation Time\n(Alderdice & Velsen 1978)")
+
+# Reset plotting layout back to standard 1x1
+par(mfrow = c(1, 1))
+
